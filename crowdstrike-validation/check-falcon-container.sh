@@ -15,9 +15,36 @@ function show_falconcontainer_status() {
     fi
 }
 
+function check_falcon-injector_pods() {
+    kubectl get pods | grep -v Running
+}
+
+
+function check_falcon-injector() {
+    kubens falcon-system
+    falcon-injector_check_pods=$(check_falcon-injector_pods)
+    
+    if [[ "${falcon-injector_check_pods}" =~ "0" ]]; then
+        echo "$(date +'%Y-%m-%dT%H:%M:%S.%s') - PODS - status: [running]"
+    else
+        echo echo "$(date +'%Y-%m-%dT%H:%M:%S.%s') - PODS - status: [not working]"
+    fi
+}
+
+
+function show_falcontainer_logs() {
+    echo
+}
+
+
+function check_falcon-operator() {
+    echo
+}
+
+
 show_falconcontainer_status
 
-
+check_falcon-injector
 
 
 
